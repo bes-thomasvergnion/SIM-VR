@@ -1,0 +1,66 @@
+<html>
+
+<head>
+    <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+</head>
+
+<body>
+    <a-scene>
+        <a-box color="red" opacity="0.8" depth="2" position="1 1 0"></a-box>
+        <a-sphere radius="2" color="red" position="1 1 0"></a-sphere>
+        <a-sky color="yellow"></a-sky>
+    </a-scene>
+</body>
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+
+<script>
+    var socket = io();
+    var coords = {
+        px: 0,
+        py: 0,
+        pz: 0,
+        ox: 0,
+        oy: 0,
+        oz: 0
+    };
+
+    socket.on('fromControl', function(data) {
+        axis(data);
+    });
+
+    var axis = function(data) {
+        var aBox = document.querySelector("a-box");
+        switch (data.t) {
+            case "px":
+                coords["px"] = data.v;
+                break;
+            case "py":
+                coords["py"] = data.v;
+                break;
+            case "pz":
+                coords["pz"] = data.v;
+                break;
+            case "ox":
+                coords["ox"] = data.v;
+                break;
+            case "oy":
+                coords["oy"] = data.v;
+                break;
+            case "oz":
+                coords["oz"] = data.v;
+                break;
+        }
+        aBox.setAttribute('position', {
+            x: coords["px"],
+            y: coords["py"],
+            z: coords["pz"]
+        });
+        aBox.setAttribute('rotation', {
+            x: coords["ox"],
+            y: coords["oy"],
+            z: coords["oz"]
+        });
+    }
+</script>
+
+</html>

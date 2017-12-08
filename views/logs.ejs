@@ -1,0 +1,135 @@
+<!-- views/logs.ejs -->
+<!doctype html>
+<html>
+<head>
+	
+
+	<%- include partials/header.ejs %>
+
+<style>
+  table img {
+    width:25px;
+  }
+  .table th {
+   text-align: center;   
+}
+</style>
+	
+</head>
+<body>
+
+<div class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img style="height:100%;" src="assets/vr-logo-3-white.png"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-inverse-collapse">
+      <ul class="nav navbar-nav"></ul>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container  text-center">
+  <h2>Results</h2>
+  <br><br>
+	
+		
+
+  <table class="table table-striped">
+  <thead class="text-center">
+  <tr>
+    <th>#</th>
+    <th>NAME</th>
+    <th>QUESTION 1</th>
+    <th>QUESTION 2</th>
+    <th>QUESTION 3</th>
+    <th>QUESTION 4</th>
+    <th>QUESTION 5</th>
+  </tr>
+  </thead>
+  <tbody>
+  
+   <% for(var i=0; i<logs.length; i++) {%>
+  <tr>
+    <td><%= i+1 %></td>
+    <td><%= logs[i].name %></td>
+    
+  
+
+  <% if(logs[i].q1){ %>
+    <td><img src="assets/true.png"></td>
+  <%  } else {%>
+     <td><img src="assets/false.png"></td>
+  <%  }%>
+  <%  if(logs[i].q2){%>
+    <td><img src="assets/true.png"></td>
+  <%  } else {%>
+     <td><img src="assets/false.png"></td>
+  <%  }%>
+  <%  if(logs[i].q3){%>
+    <td><img src="assets/true.png"></td>
+  <%  } else {%>
+     <td><img src="assets/false.png"></td>
+  <%  }%>
+  <%  if(logs[i].q4){%>
+    <td><img src="assets/true.png"></td>
+  <%  } else {%>
+     <td><img src="assets/false.png"></td>
+  <%  }%>
+  <%  if(logs[i].q5){%>
+    <td><img src="assets/true.png"></td>
+  <%  } else {%>
+     <td><img src="assets/false.png"></td>
+  <%  }%>
+
+  <% } %>
+
+  </tr>
+
+<script src="../socket.io/socket.io.js"></script>
+
+<script>
+var socket = io();
+socket.on('connect', function () {
+    socket.on('toConsole', function(msg){
+
+        console.log('to CONSOLE : ' + msg.event)
+        switch(msg.event) {
+           case 'ONENDED':
+                location.reload();
+                break;
+           
+        } 
+    });
+  });
+
+
+</script>
+
+
+
+  </tbody>
+</table>
+</div>
+
+<%- include partials/footer.ejs %>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+       

@@ -1,0 +1,242 @@
+<!-- views/console.ejs -->
+<!doctype html>
+<html>
+<head>
+	
+
+	<%- include partials/header.ejs %>
+
+
+	<style>
+  table img {
+    width:25px;
+  }
+  .table th {
+   text-align: center;   
+}
+.table td {
+   text-align: center;   
+}
+</style>
+</head>
+<body>
+
+<div class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><img style="height:100%;" src="assets/vr-logo-3-white.png"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-inverse-collapse">
+      <ul class="nav navbar-nav"></ul>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="text-center">
+    <br><br>
+    <button class="btn btn-warning btn-raised btn-lg" data-backdrop="static" data-keyboard="false" data-target="#myModal_2" data-toggle="modal">Start new session</button>
+  </div>
+
+
+    
+
+       
+
+
+  <h2>Results</h2>
+  <br><br>
+	
+		
+
+  <table class="table table-striped centered">
+    <thead class="text-center">
+    <tr>
+      <th>#</th>
+      <th>NAME</th>
+      <th>QUESTION 1</th>
+      <th>QUESTION 2</th>
+      <th>QUESTION 3</th>
+      <th>QUESTION 4</th>
+      <th>QUESTION 5</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+    <% for(var i=0; i<logs.length; i++) {%>
+    <tr>
+      <td><%= i+1 %></td>
+      <td><%= logs[i].name %></td>
+      
+    
+
+    <% if(logs[i].q1 == 'true'){ %>
+      <td><img src="assets/true.png"></td>
+    <%  } else {%>
+      <td><img src="assets/false.png"></td>
+    <%  }%>
+    <%  if(logs[i].q2 == 'true'){%>
+      <td><img src="assets/true.png"></td>
+    <%  } else {%>
+      <td><img src="assets/false.png"></td>
+    <%  }%>
+    <%  if(logs[i].q3 == 'true'){%>
+      <td><img src="assets/true.png"></td>
+    <%  } else {%>
+      <td><img src="assets/false.png"></td>
+    <%  }%>
+    <%  if(logs[i].q4 == 'true'){%>
+      <td><img src="assets/true.png"></td>
+    <%  } else {%>
+      <td><img src="assets/false.png"></td>
+    <%  }%>
+    <%  if(logs[i].q5 == 'true'){%>
+      <td><img src="assets/true.png"></td>
+    <%  } else {%>
+      <td><img src="assets/false.png"></td>
+    <%  }%>
+
+    <% } %>
+
+    </tr>
+
+
+    </tbody>
+  </table>
+</div>
+
+
+
+
+<div class="modal" id="myModal_3">
+    <div class="modal-dialog ">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-center">Save</h4>
+        </div>
+        <div class="modal-body">
+          Would you like to save the results ? 
+        </div>
+        <div class="modal-footer">
+          <button id='submit_no_save' type="button" class="btn btn-default" data-dismiss="modal">NO</button>
+          <button id='submit_save' type="button" class="btn btn-warning" data-dismiss="modal" data-backdrop="static" data-keyboard="false">YES</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="modal" id="myModal_2">
+    <div class="modal-dialog ">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-center">New session</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal">
+            <fieldset>
+              <div class="form-group">
+                <div class="col-md-10">
+                  <input type="text" class="form-control" id="sessionName" placeholder="Name">
+                </div>
+            </fieldset>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button id="newSession" type="button" class="btn btn-warning" data-dismiss="modal" data-backdrop="static" data-keyboard="false" data-target="#myModal" data-toggle="modal">Create new session</button>
+        </div>
+      </div>
+    </div>
+  </div>  
+
+
+
+
+
+  <div class="modal" id="myModal">
+    <div class="modal-dialog ">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          
+          <h4 class="modal-title text-center">New session</h4>
+          <h5 id="session_name" class="text-center"></h5>
+        </div>
+        <div class="modal-body">
+          <div class="text-center">
+            <h1 id="timer">0:00:00</h1>
+            <br>
+            <div class="well">
+             <button class="btn btn-lg btn-raised btn-success" onclick="envoiCommande('START')"><i class="material-icons">play_arrow</i>START</button>
+              <button class="btn btn-lg btn-raised btn-info" onclick="envoiCommande('PAUSE')"><i class="material-icons">pause</i>PAUSE</button>
+              <button class="btn btn-lg btn-raised btn-danger" onclick="envoiCommande('RESET')" data-dismiss="modal"><i class="material-icons">stop</i>END</button>
+            </div>
+            
+            <br>
+            <div class="well">
+              <button id="is_true" class="btn btn-lg btn-raised btn-success disabled" onclick="envoiCommande('TRUE')">TRUE</button>
+              <button id="is_false" class="btn btn-lg btn-raised btn-danger disabled" onclick="envoiCommande('FALSE')">FALSE</button>
+            </div>
+           
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th>Question</th>
+                <th>Answer</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>1</td>
+                <td id="r1"></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td id="r2"> </td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td id="r3"></td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td id="r4"></td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td id="r5"></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<form id="saveForm" action="/save_results" method="post">
+  <input type="hidden" value="" name="name">
+  <input type="hidden" value="" name="q1">
+  <input type="hidden" value="" name="q2">
+  <input type="hidden" value="" name="q3">
+  <input type="hidden" value="" name="q4">
+  <input type="hidden" value="" name="q5">
+</form>
+
+<%- include partials/footer.ejs %>
+
+
+
+<script src="../socket.io/socket.io.js"></script>
+<script src="lib/helpers.js"></script>
+<script src="lib/console.js"></script>
+
+
+
+
+</body>
+</html>

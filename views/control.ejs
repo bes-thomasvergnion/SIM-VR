@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include partials/header.ejs %>
+</head>
+
+<body>
+
+    <div class="navbar ">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="javascript:void(0)">SIMVR</a>
+            </div>
+            <div class="navbar-collapse collapse navbar-inverse-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown pull-right">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">SCENARIOS <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Scenario 1</a></li>
+                            <li><a href="#">Scenario 2</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <!--<a href="javascript:void(0)" class="btn btn-raised btn-info pull-right " disabled>NEW SCENARIO</a>-->
+                <!--<a href="javascript:void(0)" class="btn btn-raised btn-danger pull-right ">CANCEL</a>-->
+                <a href="javascript:void(0)" class="btn btn-raised btn-success pull-right ">SAVE SCENARIO</a>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <iframe id="frame-id" allowvr="yes" style="width:100%;height:35vh;border: thin solid white;" src="control.frame.html"></iframe>
+
+                <!--<div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+
+                            <div class="text-center">
+                                <input type="text" readonly="" class="form-control text-center" placeholder="ADD A VIDEO">
+                                <input type="file" id="inputFile" multiple="">
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+
+                <!--Scenario-->
+
+                <div class="panel panel-default" style="height: 46.5vh; overflow:scroll;">
+                    <div class="panel-body" style="display:block;">
+                        <h4 class="text-center">Scenario</h4>
+                        <table class="table table-striped text-center">
+                            <thead class="text-center">
+                                <tr>
+                                    <th>Steps</th>
+                                    <th>Timing</th>
+                                    <th>Heartbeat</th>
+                                    <th>Capilary Recoloration</th>
+                                    <th>Answer</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>19s - 24s</td>
+                                    <td>60bpm</td>
+                                    <td>5s</td>
+                                    <td>ACTION</td>
+                                    <td><a href="javascript:void(0)"><i class="material-icons text-default" >edit</i></a></td>
+                                    <td><a href="javascript:void(0)"><i class="material-icons text-warning">clear</i></a></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>32s - 37s</td>
+                                    <td>110bpm</td>
+                                    <td>2s</td>
+                                    <td>RED</td>
+                                    <td><a href="javascript:void(0)"><i class="material-icons text-default">edit</i></a></td>
+                                    <td><a href="javascript:void(0)"><i class="material-icons text-warning">clear</i></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!--Steps-->
+
+            <div class="col-md-6">
+                <div class="panel panel-default" style="display:block;">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h4>Steps</h4>
+                            </div>
+                            <div class="col-md-3 text-center">
+
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <!--<a href="javascript:void(0)" class="btn btn-info btn-raised btn-xs" disabled>NEW STEP</a>-->
+
+                                <a href="javascript:void(0)" class="btn btn-success btn-raised btn-xs"><i class="material-icons">done</i></a>
+                                <a href="javascript:void(0)" class="btn btn-danger btn-raised btn-xs"><i class="material-icons">clear</i></a>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="panel panel-default" style="display:block;">
+                    <div class="panel-body">
+                        <h4 class="text-center">Step 3 <span class="label label-warning" style="font-size:0.4em;">Not saved</span></h4><br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="panel ">
+                                    <div class="panel-heading">
+                                        <span class="text-info"><b>START : </b></span><span><i>(<small><b id="start_holder">0</b>sec)</i></small></span>
+                                        <input type="range" id="start" value="0">
+                                    </div>
+                                </div>
+                                <div class="panel ">
+                                    <div class="panel-heading">
+                                        <h4 class="text-center">POSITION</h4>
+                                        <span class="text-info"><b>X : </b></span><span><i> (</i><small><i id="pos_x_holder">0</i></small><i>)</i></span>
+                                        <input id="pos_x" type="range" value="50">
+                                        <span class="text-info"><b>Y :</b></span><span><i> (</i><small><i id="pos_y_holder">0</i></small><i>)</i></span>
+                                        <input id="pos_y" type="range" id="myRange" value="50">
+                                        <span class="text-info"><b>Z :</b></span><span><i> (</i><small><i id="pos_z_holder">0</i></small><i>)</i></span>
+                                        <input id="pos_z" type="range" id="myRange" value="50">
+                                    </div>
+                                </div>
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h4 class="text-center"><i class="material-icons">favorite_border</i></h4>
+                                        <div class="text-center"><input class="text-center" type="text" placeholder="value"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="panel ">
+                                    <div class="panel-heading">
+                                        <span class="text-info"><b>END : </b></span><span><i>(<small><b id="end_holder">0</b>sec)</i></small></span>
+                                        <input type="range" id="end" value="100">
+                                    </div>
+                                </div>
+                                <div class="panel ">
+                                    <div class="panel-heading">
+                                        <h4 class="text-center">ORIENTATION</h4>
+                                        <span class="text-info"><b>X :</b></span><span><i> (</i><small><i id="ori_x_holder">0</i></small><i>)</i></span>
+                                        <input id="ori_x" type="range" id="myRange" value="50">
+                                        <span class="text-info"><b>Y :</b></span><span><i> (</i><small><i id="ori_y_holder">0</i></small><i>)</i></span>
+                                        <input id="ori_y" type="range" id="myRange" value="50">
+                                        <span class="text-info"><b>Z :</b></span><span><i> (</i><small><i id="ori_z_holder">0</i></small><i>)</i></span>
+                                        <input id="ori_z" type="range" id="myRange" value="50">
+                                    </div>
+                                </div>
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h4 class="text-center" style="margin:13px auto"><span class="label label-default">CR</span></h4>
+                                        <div class="text-center"><input class="text-center" type="text" placeholder="value"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h4 class="text-center" style="margin:13px auto">CORRECT ANSWER :</h4>
+                                <div class="text-center text-info">
+                                    <div class="row">
+
+                                        <div class="col-md-4">
+                                            <input name="group2" type="radio">
+                                            <b> RED </b>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input name="group2" type="radio">
+                                            <b> YELLOW </b>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input name="group2" type="radio">
+                                            <b> ACTION </b>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <%- include partials/footer.ejs %>
+
+    <script src="../socket.io/socket.io.js"></script>
+    <script src="lib/control.js"></script>
+
+
+</body>
+
+</html>
